@@ -76,7 +76,13 @@ class Program
             throw new ArgumentException("Compiled block pointer is null.");
         }
 
-        // Use a delegate to execute the compiled code
+        // Check if the compiled block is valid before execution
+        if (!IsValidMemoryAddress(compiledBlock))
+        {
+            Console.WriteLine("Invalid memory address for compiled block.");
+            return;
+        }
+
         var func = Marshal.GetDelegateForFunctionPointer<Action>(compiledBlock);
 
         try
@@ -92,5 +98,13 @@ class Program
         {
             Console.WriteLine($"An error occurred during execution: {ex.Message}");
         }
+    }
+
+    static bool IsValidMemoryAddress(IntPtr address)
+    {
+        // Check if the address is within a valid range
+        const int minAddress = 0x1000; // Example minimum address
+        const int maxAddress = 0xFFFF; // Example maximum address
+        return address != IntPtr.Zero && address.ToInt64() >= minAddress && address.ToInt64() <= maxAddress;
     }
 }
