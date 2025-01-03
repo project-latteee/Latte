@@ -1,1 +1,1 @@
-# WiiEmulate
+# Latte
