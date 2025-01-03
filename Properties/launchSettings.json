@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "WiiEmulate": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}
